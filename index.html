@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://obniz.io/js/jquery-3.2.1.min.js"></script>
+    <script
+      src="https://unpkg.com/obniz@3.3.0/obniz.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <h1>obniz</h1>
+    <script>
+      var obniz = new Obniz("5737-9733");
+
+      obniz.onconnect = async function() {
+        var led = obniz.wired("LED", { anode: 0, cathode: 1 });
+        let currentNum = 0;
+        const emotions = [">▽<", "¬△¬", "^ o ^"];
+        const initialize = () => {
+          obniz.display.clear();
+          obniz.display.font(null, 48);
+        };
+
+        const displayEmotion = () => {
+          obniz.display.clear();
+          obniz.display.pos(16, 4);
+          obniz.display.print(emotions[currentNum]);
+          currentNum += 1;
+          if (currentNum > 2) {
+            currentNum = 0;
+          }
+        };
+
+        initialize();
+        setInterval(displayEmotion, 1000);
+      };
+    </script>
+  </body>
+</html>
